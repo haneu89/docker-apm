@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
   php-zip \
   php-mysql \
   php-mbstring \
+  php-intl \
+  php-soap \
   php-gd \
   php-dev \
   php-curl \
