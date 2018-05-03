@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
   php-mcrypt \
   php-zip \
   php-mysql \
+  php-pgsql \
   php-mbstring \
   php-intl \
   php-soap \
