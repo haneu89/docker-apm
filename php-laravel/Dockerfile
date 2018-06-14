@@ -1,5 +1,9 @@
 FROM debian:stretch-slim
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_NO_INTERACTION=1
+ENV COMPOSER_HOME /root/.composer
+
 # Timezone 설정
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -7,12 +11,14 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 기본 설치
 RUN apt-get update && apt-get install -y nginx php php-fpm php-mcrypt \ 
       php-zip php-mysql php-pgsql php-mbstring php-intl php-soap php-gd \
-      php-dev php-curl php-xml curl wget \
+      php-dev php-curl php-xml curl wget apt-utils\
       ca-certificates apt-transport-https build-essential --no-install-recommends
 
 # Composer 설치
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
+# prestissimo
+RUN composer global require hirak/prestissimo
 
 COPY ./default2.conf /etc/nginx/sites-available/default
 EXPOSE 80
