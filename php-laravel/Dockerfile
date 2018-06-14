@@ -26,9 +26,8 @@ RUN apt-get update && apt-get install -y \
   build-essential \
   --no-install-recommends
 
-RUN a2enmod rewrite
-RUN sed -i ':a;N;$!ba;s/AllowOverride None/AllowOverride All/3' /etc/apache2/apache2.conf
-
+RUN apt-get install -y vim
+COPY ./default2.conf /etc/nginx/sites-available/default
 EXPOSE 80
 
-CMD apachectl -DFOREGROUND
+CMD /etc/init.d/php7.0-fpm start && nginx -g "daemon off;"
