@@ -11,8 +11,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 기본 설치
 RUN apt-get update && apt-get install -y nginx php php-fpm php-mcrypt \ 
       php-zip php-mysql php-pgsql php-mbstring php-intl php-soap php-gd \
-      php-dev php-curl php-xml curl wget apt-utils\
-      ca-certificates apt-transport-https build-essential --no-install-recommends
+      php-dev php-curl php-xml php-pgsql curl wget apt-utils\
+      ca-certificates apt-transport-https build-essential --no-install-recommends \
+      && rm -rf /var/lib/apt/lists/*
 
 # Composer 설치
 RUN curl -sS https://getcomposer.org/installer | \
