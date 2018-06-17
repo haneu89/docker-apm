@@ -19,9 +19,11 @@ RUN apt-get update && apt-get install -y nginx php php-fpm php-mcrypt \
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
 # prestissimo
-RUN composer global require hirak/prestissimo
 
 COPY ./default2.conf /etc/nginx/sites-available/default
+
+RUN composer global require hirak/prestissimo
+
 EXPOSE 80
 
 CMD /etc/init.d/php7.0-fpm start && nginx -g "daemon off;"
