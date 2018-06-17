@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 기본 설치
 RUN apt-get update && apt-get install -y nginx php php-fpm php-mcrypt \ 
       php-zip php-mysql php-pgsql php-mbstring php-intl php-soap php-gd \
-      php-dev php-curl php-xml php-pgsql curl wget apt-utils\
+      php-dev php-curl php-xml php-pgsql curl wget cron apt-utils\
       ca-certificates apt-transport-https build-essential --no-install-recommends \
       && rm -rf /var/lib/apt/lists/*
 
@@ -26,4 +26,4 @@ RUN composer global require hirak/prestissimo
 
 EXPOSE 80
 
-CMD /etc/init.d/php7.0-fpm start && nginx -g "daemon off;"
+CMD cron && /etc/init.d/php7.0-fpm start && nginx -g "daemon off;"
