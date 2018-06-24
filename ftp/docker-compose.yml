@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  apm:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+    - ./html:/var/www/html
+    ports:
+      - "7000:80"
+
+  ftp:
+    image: fauria/vsftpd
+    volumes:
+      - ./html:/home/vsftpd/admin
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    environment:
+      - FTP_USER=admin
+      - FTP_PASS=passwd
+      - PASV_MIN_PORT=21100
+      - PASV_MAX_PORT=21110
+      - PASV_ADDRESS=127.0.0.1
