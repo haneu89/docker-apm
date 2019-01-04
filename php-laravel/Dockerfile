@@ -9,10 +9,14 @@ ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 기본 설치
-RUN apt-get update && apt-get install -y nginx php php-fpm php-mcrypt \ 
-      php-zip php-mysql php-pgsql php-mbstring php-intl php-soap php-gd \
-      php-dev php-curl php-xml php-pgsql curl wget cron apt-utils\
-      ca-certificates apt-transport-https build-essential --no-install-recommends \
+RUN apt-get update \
+      && apt-get install -y --no-install-recommends curl wget gnupg cron apt-utils ca-certificates apt-transport-https build-essential \
+      && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
+      && echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list \
+      && apt-get update \
+      && apt-get install -y --no-install-recommends nginx php7.2 php7.2-fpm \ 
+      php7.2-zip php7.2-mysql php7.2-pgsql php7.2-mbstring php7.2-intl php7.2-soap php7.2-gd \
+      php7.2-dev php7.2-curl php7.2-xml php7.2-pgsql \
       && rm -rf /var/lib/apt/lists/*
 
 # Composer 설치
