@@ -19,6 +19,12 @@ RUN apt-get update \
       php7.2-dev php7.2-curl php7.2-xml php7.2-pgsql \
       && rm -rf /var/lib/apt/lists/*
 
+RUN sed -i -e "s/^post_max_size.*/post_max_size = 2G/" /etc/php/7.2/fpm/php.ini \
+  -e "s/^upload_max_filesize.*/upload_max_filesize = 2G/" /etc/php/7.2/fpm/php.ini \
+  -e "s/^max_file_uploads.*/max_file_uploads = 2000/" /etc/php/7.2/fpm/php.ini \
+  -e "s/^memory_limit.*/memory_limit = 512M/" /etc/php/7.2/fpm/php.ini \
+  -e '/sendfile/i\\tclient_max_body_size 2G;' /etc/nginx/nginx.conf
+
 # Composer 설치
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
