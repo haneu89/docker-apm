@@ -34,6 +34,6 @@ COPY ./default2.conf /etc/nginx/sites-available/default
 
 RUN composer global require hirak/prestissimo
 
-EXPOSE 80
+EXPOSE 80 443
 
 CMD cron && /etc/init.d/php7.3-fpm start && nginx -g "daemon off;"
