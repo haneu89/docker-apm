@@ -16,7 +16,7 @@ RUN apt-get update \
       && apt-get update \
       && apt-get install -y --no-install-recommends nginx php7.3 php7.3-fpm \ 
       php7.3-zip php7.3-mysql php7.3-pgsql php7.3-mbstring php7.3-intl php7.3-soap php7.3-gd \
-      php7.3-dev php7.3-curl php7.3-xml php7.3-pgsql php7.3-mongodb\
+      php7.3-dev php7.3-curl php7.3-xml php7.3-redis php7.3-mongodb\
       && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -e "s/^post_max_size.*/post_max_size = 2G/" /etc/php/7.3/fpm/php.ini \
