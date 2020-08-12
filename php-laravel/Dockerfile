@@ -31,10 +31,16 @@ RUN curl -sS https://getcomposer.org/installer | \
 # prestissimo
 
 COPY ./default2.conf /etc/nginx/sites-available/default
-COPY ./laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 
 RUN composer global require hirak/prestissimo
 
+COPY ./laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+COPY ./start.sh /usr/local/bin/start
+RUN chmod u+x /usr/local/bin/start
+
 EXPOSE 80 443
 
-CMD cron && /etc/init.d/php7.3-fpm start && nginx -g "daemon off;" && php artisan queue:work
+
+CMD ["/usr/local/bin/start"]
+
+# CMD cron && /etc/init.d/php7.3-fpm start && nginx -g "daemon off;" && php artisan queue:work
