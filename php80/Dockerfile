@@ -35,7 +35,7 @@ RUN apt-get install -y supervisor
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # Clear cache
-# RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
