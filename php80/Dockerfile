@@ -10,7 +10,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached
 
-RUN pecl install mongodb
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y supervisor
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # Clear cache
 # RUN apt-get clean && rm -rf /var/lib/apt/lists/*
