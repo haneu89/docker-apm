@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     lua-zlib-dev \
     libmemcached-dev \
     cron \
+    vim \
     nginx
 
 # Install supervisor
