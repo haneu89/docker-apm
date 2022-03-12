@@ -10,11 +10,11 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached
 
-RUN pecl install mongodb && docker-php-ext-enable mongodb
-RUN pecl install redis && docker-php-ext-enable redis
+
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev pkg-config libssl-dev openssl\
     build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
@@ -33,6 +33,9 @@ RUN apt-get update && apt-get install -y \
 
 # Install supervisor
 RUN apt-get install -y supervisor
+
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
